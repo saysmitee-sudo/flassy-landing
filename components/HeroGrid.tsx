@@ -59,6 +59,7 @@ function GridSvg({
       className={className}
       viewBox="0 0 1200 1000"
       preserveAspectRatio="xMidYMin slice"
+      overflow="hidden"
     >
       <g
         fill="none"
@@ -80,17 +81,19 @@ function GridSvg({
 
 export function HeroGrid() {
   return (
-    <div className="hero-grid" aria-hidden>
-      <GridSvg
-        className="hero-grid__svg hero-grid__svg--mobile"
-        paths={mobile}
-        strokeWidth={1.35}
-      />
-      <GridSvg
-        className="hero-grid__svg hero-grid__svg--desktop"
-        paths={desktop}
-        strokeWidth={1.2}
-      />
+    <div className="hero-grid-clip" aria-hidden>
+      <div className="hero-grid">
+        <GridSvg
+          className="hero-grid__svg hero-grid__svg--mobile"
+          paths={mobile}
+          strokeWidth={1.35}
+        />
+        <GridSvg
+          className="hero-grid__svg hero-grid__svg--desktop"
+          paths={desktop}
+          strokeWidth={1.2}
+        />
+      </div>
     </div>
   );
 }

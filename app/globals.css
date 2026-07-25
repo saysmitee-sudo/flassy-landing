@@ -29,6 +29,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -46,6 +48,9 @@
   }
 
   body {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
     background: var(--bg);
     color: var(--ink);
     font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -178,18 +183,26 @@
   }
 }
 
-/* Soft 3D grid — stretches to work cards on mobile, soft tip-off at edge */
+/* Soft 3D grid — clipped so width bleed never expands the page on iOS */
+.hero-grid-clip {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 0;
+  height: max(100vh, 720px);
+  overflow: hidden;
+}
+
 .hero-grid {
   pointer-events: none;
   position: absolute;
   left: 50%;
   top: -2%;
   width: 120%;
-  /* Reach the work cards on phones */
-  height: max(100vh, 720px);
+  height: 100%;
   transform: translateX(-50%);
-  z-index: 0;
-  overflow: visible;
+  overflow: hidden;
   -webkit-mask-image: linear-gradient(
     180deg,
     #000 0%,
@@ -207,9 +220,13 @@
 }
 
 @media (min-width: 768px) {
-  .hero-grid {
-    width: min(1280px, 140vw);
+  .hero-grid-clip {
     height: min(880px, 115vh);
+  }
+
+  .hero-grid {
+    width: min(1280px, 140%);
+    height: 100%;
     -webkit-mask-image: linear-gradient(
       180deg,
       #000 0%,
