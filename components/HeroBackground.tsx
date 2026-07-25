@@ -33,7 +33,7 @@ const shapes = [
     animate: { x: [0, 18, -12, 0], y: [0, -22, 8, 0], rotate: [0, -14, 10, 0] },
     duration: 14,
   },
-] as const;
+];
 
 export function HeroBackground() {
   const reduce = useReducedMotion();
