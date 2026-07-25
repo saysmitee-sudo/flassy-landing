@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/ui/Reveal";
 
 const marks = [
@@ -16,21 +17,24 @@ const marks = [
 ];
 
 export function Partners() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="bg-transparent py-14 md:py-20">
       <div className="container-page">
-        <Reveal>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-5 md:gap-x-8 md:gap-y-10">
-            {marks.map((mark) => (
-              <li
-                key={mark}
-                className="flex items-center justify-center rounded-xl bg-white/40 px-3 py-4 text-center text-base font-semibold tracking-tight text-ink/80 shadow-soft ring-1 ring-black/[0.04] backdrop-blur-sm md:py-5 md:text-lg"
+        <ul className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-5 md:gap-x-8 md:gap-y-10">
+          {marks.map((mark, i) => (
+            <Reveal key={mark} delay={0.04 * i} y={16}>
+              <motion.li
+                whileHover={reduce ? undefined : { y: -3, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 380, damping: 24 }}
+                className="flex items-center justify-center rounded-xl bg-white/40 px-3 py-4 text-center text-base font-semibold tracking-tight text-ink/80 shadow-soft ring-1 ring-black/[0.04] backdrop-blur-sm transition-shadow hover:shadow-lift md:py-5 md:text-lg"
               >
                 {mark}
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+              </motion.li>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );

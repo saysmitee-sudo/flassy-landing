@@ -21,7 +21,7 @@ type ButtonProps = {
 } & Omit<ComponentProps<"button">, "children" | "className">;
 
 const base =
-  "inline-flex h-11 items-center justify-center gap-1.5 rounded-full px-6 text-[15px] font-medium leading-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-50";
+  "group inline-flex h-11 items-center justify-center gap-1.5 rounded-full px-6 text-[15px] font-medium leading-none transition-[color,background-color,transform,box-shadow,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-50";
 
 export function Button({
   children,
@@ -36,7 +36,10 @@ export function Button({
   const content = showArrow ? (
     <>
       <span className="translate-y-px">{children}</span>
-      <ArrowUpRight className="size-[18px] shrink-0" aria-hidden />
+      <ArrowUpRight
+        className="size-[18px] shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-px group-hover:-translate-y-px"
+        aria-hidden
+      />
     </>
   ) : (
     children

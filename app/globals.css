@@ -173,4 +173,62 @@
   .ambient-orb {
     animation: none !important;
   }
+
+  .hero-grid__svg {
+    animation: none !important;
+  }
+}
+
+/* Soft 3D grid behind hero — full-bleed, no card */
+.hero-grid {
+  pointer-events: none;
+  position: absolute;
+  inset: 0 0 -28%;
+  z-index: 0;
+  overflow: visible;
+}
+
+.hero-grid__svg {
+  position: absolute;
+  inset: -4% -6% 0;
+  width: 112%;
+  height: 100%;
+  transform-origin: 50% 40%;
+  animation: hero-grid-breathe 22s ease-in-out infinite alternate;
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 42%,
+    rgba(0, 0, 0, 0.55) 68%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 42%,
+    rgba(0, 0, 0, 0.55) 68%,
+    transparent 100%
+  );
+}
+
+.hero-grid__fade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 55%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(247, 247, 248, 0.25) 35%,
+    rgba(247, 247, 248, 0.72) 70%,
+    var(--bg) 100%
+  );
+}
+
+@keyframes hero-grid-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.04);
+  }
 }
