@@ -61,20 +61,20 @@
 @layer utilities {
   .container-page {
     width: 100%;
-    max-width: 72rem;
+    max-width: 64rem;
     margin-inline: auto;
     padding-inline: 1.5rem;
   }
 
   @media (min-width: 768px) {
     .container-page {
-      padding-inline: 2.25rem;
+      padding-inline: 2rem;
     }
   }
 
   @media (min-width: 1280px) {
     .container-page {
-      padding-inline: 3rem;
+      padding-inline: 2.5rem;
     }
   }
 

@@ -1,5 +1,5 @@
 export const hero = {
-  line1: "Discover the essence of FLASSY, an AI visual content studio.",
+  line1: "Discover the essence of FLASSY, an AI visual content agency.",
   line2: "Let's shape your brand into a masterpiece together.",
   cta: "Message us",
 } as const;
@@ -80,13 +80,12 @@ export const about = {
 } as const;
 
 export const contact = {
-  eyebrow: "Contact",
   headline: "Let's start creating together",
   cta: "Let's talk",
 } as const;
 
 export const footer = {
-  note: "FLASSY — AI Visual Content Studio",
+  note: "FLASSY — AI Visual Content Agency",
   links: [
     { label: "Home", href: "#top" },
     { label: "Work", href: "#work" },

@@ -11,13 +11,13 @@ export function Hero() {
   const delay = (i: number) => (reduce ? 0 : 0.08 * i);
 
   return (
-    <section id="top" className="bg-transparent pt-28 md:pt-36">
+    <section id="top" className="bg-transparent pt-24 md:pt-28">
       <div className="container-page flex flex-col items-center text-center">
         <motion.h1
           initial={initial}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: delay(0) }}
-          className="max-w-[18ch] text-[clamp(2.25rem,6vw,4rem)] font-medium leading-[1.12] tracking-tight md:max-w-[22ch]"
+          className="max-w-[18ch] text-[clamp(2rem,4.5vw,3.25rem)] font-medium leading-[1.12] tracking-tight md:max-w-[22ch]"
         >
           <span className="text-ink">{hero.line1} </span>
           <span className="text-muted">{hero.line2}</span>
@@ -27,7 +27,7 @@ export function Hero() {
           initial={initial}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: delay(1) }}
-          className="my-14 flex w-full items-center justify-center md:my-16"
+          className="my-10 flex w-full items-center justify-center md:my-12"
         >
           <Button
             href={site.telegram.url}

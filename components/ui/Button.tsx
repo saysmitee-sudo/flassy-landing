@@ -21,7 +21,7 @@ type ButtonProps = {
 } & Omit<ComponentProps<"button">, "children" | "className">;
 
 const base =
-  "relative inline-flex h-12 items-center justify-center rounded-full px-7 text-[17px] font-medium leading-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-50";
+  "inline-flex h-11 items-center justify-center gap-1.5 rounded-full px-6 text-[15px] font-medium leading-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-50";
 
 export function Button({
   children,
@@ -35,11 +35,8 @@ export function Button({
   const classes = `${base} ${variants[variant]} ${className}`;
   const content = showArrow ? (
     <>
-      <span>{children}</span>
-      <ArrowUpRight
-        className="pointer-events-none absolute right-5 top-1/2 size-[18px] -translate-y-1/2"
-        aria-hidden
-      />
+      <span className="translate-y-px">{children}</span>
+      <ArrowUpRight className="size-[18px] shrink-0" aria-hidden />
     </>
   ) : (
     children

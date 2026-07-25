@@ -32,10 +32,10 @@ export function Header() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="container-page grid h-16 grid-cols-2 items-center md:h-[72px] md:grid-cols-3">
+      <div className="container-page grid h-14 grid-cols-2 items-center md:h-16 md:grid-cols-3">
         <Link
           href="#top"
-          className="justify-self-start text-[22px] font-semibold tracking-tight text-ink lowercase"
+          className="justify-self-start text-[20px] font-semibold tracking-tight text-ink lowercase"
           onClick={() => setOpen(false)}
         >
           {site.name}
