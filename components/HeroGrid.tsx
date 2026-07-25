@@ -1,10 +1,8 @@
-/** Soft warped grid backdrop for the hero (barrel distortion). */
-function buildGridPaths() {
+/** Soft warped grid backdrop for the hero. */
+function buildGridPaths(cols: number, rows: number) {
   const w = 1200;
-  const h = 900;
-  const cols = 20;
-  const rows = 15;
-  const k = 0.22;
+  const h = 1000;
+  const k = 0.18;
 
   const distort = (x: number, y: number) => {
     const nx = (x / w) * 2 - 1;
@@ -42,32 +40,57 @@ function buildGridPaths() {
   return { vertical, horizontal };
 }
 
-const { vertical, horizontal } = buildGridPaths();
+/** Coarser mesh for phones */
+const mobile = buildGridPaths(9, 11);
+/** Denser mesh for desktop */
+const desktop = buildGridPaths(16, 14);
+
+function GridSvg({
+  className,
+  paths,
+  strokeWidth,
+}: {
+  className: string;
+  paths: { vertical: string[]; horizontal: string[] };
+  strokeWidth: number;
+}) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 1200 1000"
+      preserveAspectRatio="xMidYMin slice"
+    >
+      <g
+        fill="none"
+        stroke="#111111"
+        strokeOpacity="0.17"
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+      >
+        {paths.vertical.map((d, i) => (
+          <path key={`v-${i}`} d={d} />
+        ))}
+        {paths.horizontal.map((d, i) => (
+          <path key={`h-${i}`} d={d} />
+        ))}
+      </g>
+    </svg>
+  );
+}
 
 export function HeroGrid() {
   return (
     <div className="hero-grid" aria-hidden>
-      <svg
-        className="hero-grid__svg"
-        viewBox="0 0 1200 900"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <g
-          fill="none"
-          stroke="#111111"
-          strokeOpacity="0.18"
-          strokeWidth="1.25"
-          strokeLinecap="round"
-        >
-          {vertical.map((d, i) => (
-            <path key={`v-${i}`} d={d} />
-          ))}
-          {horizontal.map((d, i) => (
-            <path key={`h-${i}`} d={d} />
-          ))}
-        </g>
-      </svg>
-      <div className="hero-grid__fade" />
+      <GridSvg
+        className="hero-grid__svg hero-grid__svg--mobile"
+        paths={mobile}
+        strokeWidth={1.35}
+      />
+      <GridSvg
+        className="hero-grid__svg hero-grid__svg--desktop"
+        paths={desktop}
+        strokeWidth={1.2}
+      />
     </div>
   );
 }

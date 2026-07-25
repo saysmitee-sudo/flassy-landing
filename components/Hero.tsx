@@ -14,7 +14,7 @@ export function Hero() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="top" className="relative isolate bg-transparent pt-24 md:pt-28">
+    <section id="top" className="relative bg-transparent pt-24 md:pt-28">
       <motion.div
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -23,7 +23,7 @@ export function Hero() {
         <HeroGrid />
       </motion.div>
 
-      <div className="relative z-10 container-page flex flex-col items-center pb-16 text-center md:pb-24">
+      <div className="relative z-10 container-page flex flex-col items-center text-center">
         <motion.h1
           initial={
             reduce
@@ -36,16 +36,17 @@ export function Hero() {
             delay: 0.08,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="max-w-[20ch] text-[clamp(2rem,4.5vw,3.25rem)] font-medium leading-[1.12] tracking-tight md:max-w-[24ch]"
+          className="max-w-[20ch] text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-[1.12] tracking-tight md:max-w-[24ch]"
         >
           <span className="text-ink">
             {LINE1_BEFORE}
             <span className="font-bold italic">{LINE1_BRAND}</span>
             {LINE1_AFTER}
           </span>
-          <span className="text-muted">{hero.line2}</span>
+          <span className="font-semibold text-muted">{hero.line2}</span>
         </motion.h1>
 
+        {/* Equal gap: text → button → work cards */}
         <motion.div
           initial={
             reduce
@@ -58,13 +59,13 @@ export function Hero() {
             delay: reduce ? 0 : 0.35,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="my-10 flex w-full items-center justify-center md:my-12"
+          className="flex w-full items-center justify-center py-12 md:py-14"
         >
           <Button
             href={site.telegram.url}
             external
             showArrow
-            className="min-w-[12.5rem]"
+            className="hero-cta min-w-[12.5rem] hover:translate-y-0"
           >
             {hero.cta}
           </Button>
