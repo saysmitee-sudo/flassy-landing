@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { work } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
+import { WorkVideo } from "@/components/WorkVideo";
 
 export function WorkGrid() {
   return (
@@ -18,13 +19,10 @@ export function WorkGrid() {
               <article className="group">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] bg-surface shadow-soft ring-1 ring-black/5 transition-[box-shadow,transform] duration-500 group-hover:-translate-y-1 group-hover:shadow-lift md:rounded-[28px]">
                   {item.type === "video" ? (
-                    <video
+                    <WorkVideo
                       src={item.media}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className={`size-full object-cover transition-transform duration-700 group-hover:scale-[1.04] ${item.focus}`}
+                      poster={item.poster}
+                      className={item.focus}
                     />
                   ) : (
                     <Image

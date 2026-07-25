@@ -9,24 +9,28 @@ export const work = {
     {
       title: "Product Campaign",
       media: "/media/vanta-nightshift-capsule.mp4",
+      poster: "/media/posters/vanta-nightshift-capsule.jpg",
       type: "video" as const,
       focus: "object-center",
     },
     {
       title: "Ad Creatives",
       media: "/media/creator-before-after.mp4",
+      poster: "/media/posters/creator-before-after.jpg",
       type: "video" as const,
       focus: "object-[50%_14%]",
     },
     {
       title: "AI-avatars for brands",
       media: "/media/maya-avatar-preview.mp4",
+      poster: "/media/posters/maya-avatar-preview.jpg",
       type: "video" as const,
       focus: "object-[50%_12%]",
     },
     {
       title: "Digital characters",
       media: "/media/royal-trader.mp4",
+      poster: "/media/posters/royal-trader.jpg",
       type: "video" as const,
       focus: "object-[50%_42%]",
     },
