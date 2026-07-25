@@ -1,41 +1,33 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s · ${site.name}`,
+    default: `${site.displayName} — ${site.tagline}`,
+    template: `%s · ${site.displayName}`,
   },
   description: site.description,
   metadataBase: new URL(site.url),
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.displayName} — ${site.tagline}`,
     description: site.description,
     url: site.url,
-    siteName: site.name,
+    siteName: site.displayName,
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.displayName} — ${site.tagline}`,
     description: site.description,
-  },
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 
@@ -45,11 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-sans font-medium">{children}</body>
     </html>
   );
 }

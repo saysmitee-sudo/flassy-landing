@@ -11,7 +11,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -28,46 +28,49 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-300 ${
         scrolled || open
-          ? "border-b border-border bg-white/80 backdrop-blur-xl"
+          ? "border-b border-line/70 bg-white/70 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="container-page flex h-14 items-center justify-between gap-4 md:h-16">
+      <div className="container-page grid h-16 grid-cols-2 items-center md:h-[72px] md:grid-cols-3">
         <Link
           href="#top"
-          className="text-[15px] font-semibold tracking-tight text-ink"
+          className="justify-self-start text-[22px] font-semibold tracking-tight text-ink lowercase"
           onClick={() => setOpen(false)}
         >
           {site.name}
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav
+          className="hidden items-center justify-self-center gap-8 md:flex"
+          aria-label="Primary"
+        >
           {site.nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-ink/80 transition-colors hover:text-ink"
+              className="text-[15px] font-medium text-ink/80 transition-colors hover:text-ink"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Button
-            href={site.telegram.url}
-            external
-            showArrow
-            variant="primary"
-            className="hidden sm:inline-flex"
-          >
-            Message us
-          </Button>
+        <div className="flex items-center justify-self-end gap-2">
+          <div className="hidden md:block">
+            <Button
+              href={site.telegram.url}
+              external
+              variant="primary"
+              className="!px-5 !py-3 !text-[15px]"
+            >
+              Message us
+            </Button>
+          </div>
           <button
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-white/70 text-ink lg:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-full border border-line text-ink md:hidden"
             aria-expanded={open}
-            aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((v) => !v)}
           >
@@ -77,32 +80,18 @@ export function Header() {
       </div>
 
       {open ? (
-        <div
-          id="mobile-nav"
-          className="border-t border-border bg-white lg:hidden"
-        >
-          <nav className="container-page flex flex-col gap-1 py-4" aria-label="Mobile">
+        <div className="border-t border-line/70 bg-white/80 backdrop-blur-xl md:hidden">
+          <nav className="container-page flex flex-col items-center gap-1 py-5 text-center" aria-label="Mobile">
             {site.nav.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-lg px-3 py-3 text-base font-medium text-ink"
+                className="rounded-lg px-2 py-3 text-base font-medium text-ink"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
               </a>
             ))}
-            <div className="mt-2 px-3 pb-2 sm:hidden">
-              <Button
-                href={site.telegram.url}
-                external
-                showArrow
-                variant="primary"
-                className="w-full"
-              >
-                Message us
-              </Button>
-            </div>
           </nav>
         </div>
       ) : null}

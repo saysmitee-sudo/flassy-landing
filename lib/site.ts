@@ -1,5 +1,6 @@
 export const site = {
-  name: "FLASSY",
+  name: "flassy",
+  displayName: "FLASSY",
   tagline: "AI Visual Content Studio",
   description:
     "FLASSY is an AI visual content studio for brands — ad creatives, photo & video generation, and AI avatars built for business.",
@@ -9,8 +10,9 @@ export const site = {
     url: "https://t.me/flassystudio",
   },
   nav: [
-    { label: "Services", href: "#services" },
     { label: "Work", href: "#work" },
+    { label: "Services", href: "#services" },
+    { label: "About", href: "#about" },
     { label: "Contact", href: "#contact" },
   ],
 } as const;

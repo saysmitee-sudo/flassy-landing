@@ -8,36 +8,24 @@ type RevealProps = {
   className?: string;
   delay?: number;
   y?: number;
-  amount?: number;
-  as?: "div" | "li" | "article" | "section" | "ul" | "p" | "h2" | "h3";
 };
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-export function Reveal({
-  children,
-  className = "",
-  delay = 0,
-  y = 24,
-  amount = 0.2,
-  as = "div",
-}: RevealProps) {
+export function Reveal({ children, className = "", delay = 0, y = 20 }: RevealProps) {
   const reduce = useReducedMotion();
-  const Component = motion[as];
 
   return (
-    <Component
+    <motion.div
       className={className}
       initial={reduce ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: reduce ? 0 : 0.65,
+        duration: reduce ? 0 : 0.6,
         delay: reduce ? 0 : delay,
-        ease,
+        ease: [0.22, 1, 0.36, 1],
       }}
     >
       {children}
-    </Component>
+    </motion.div>
   );
 }

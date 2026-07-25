@@ -1,40 +1,66 @@
 "use client";
 
-import { servicesIntro } from "@/lib/content";
-import { Button } from "@/components/ui/Button";
-import { Reveal } from "@/components/ui/Reveal";
-import { Section } from "@/components/ui/Section";
-import { ServiceVisual } from "@/components/visuals/ServiceVisual";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { services } from "@/lib/content";
 
 export function Services() {
-  return (
-    <Section id="services" theme="dark" className="!pt-20 md:!pt-28">
-      <Reveal>
-        <h2 className="mx-auto max-w-2xl text-center text-3xl font-semibold tracking-tight text-white md:text-4xl lg:text-[2.5rem] lg:leading-tight">
-          {servicesIntro.headline}
-        </h2>
-      </Reveal>
+  const [open, setOpen] = useState<number | null>(0);
 
-      <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 md:gap-5 lg:gap-6">
-        {servicesIntro.items.map((item, i) => (
-          <Reveal key={item.id} as="article" className="flex flex-col" delay={0.1 * i}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-black">
-              <ServiceVisual type={item.id} fill />
-            </div>
-            <h3 className="mt-5 text-lg font-semibold tracking-tight text-white md:text-xl">
-              {item.title}
-            </h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-text-muted-dark md:text-[15px]">
-              {item.description}
-            </p>
-            <div className="mt-5">
-              <Button href={item.href} variant="dark" className="text-sm">
-                {item.cta}
-              </Button>
-            </div>
-          </Reveal>
-        ))}
+  return (
+    <section id="services" className="bg-transparent pb-20 pt-0 md:pb-28">
+      <div className="container-page">
+        <ul className="rounded-[28px] border border-line/80 bg-white/50 px-4 shadow-soft backdrop-blur-sm md:rounded-[32px] md:px-8">
+          {services.items.map((service, i) => {
+            const isOpen = open === i;
+            return (
+              <li
+                key={service.title}
+                className={i < services.items.length - 1 ? "border-b border-line/80" : ""}
+              >
+                <button
+                  type="button"
+                  className="relative flex w-full items-center justify-center gap-4 py-7 text-center md:py-9"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpen(isOpen ? null : i)}
+                >
+                  <span
+                    className={`text-[clamp(1.75rem,4vw,2.5rem)] font-medium tracking-tight transition-colors ${
+                      isOpen ? "text-ink" : "text-muted hover:text-ink"
+                    }`}
+                  >
+                    {service.title}
+                  </span>
+                  <ChevronDown
+                    className={`absolute right-0 size-6 shrink-0 text-ink/50 transition-transform duration-300 md:size-7 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                    aria-hidden
+                  />
+                </button>
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                    isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <ul className="space-y-3.5 pb-8 text-center md:pb-10">
+                      {service.items.map((item) => (
+                        <li
+                          key={item}
+                          className="text-lg font-medium text-ink/80 md:text-xl"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-    </Section>
+    </section>
   );
 }

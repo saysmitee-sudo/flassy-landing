@@ -2,6 +2,8 @@
 
 AI visual content studio marketing site — Next.js, Tailwind CSS, mobile-first.
 
+Design adapted from the Pearl Framer creative portfolio template for FLASSY.
+
 ## Develop
 
 ```bash
@@ -15,6 +17,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 - Next.js App Router + TypeScript
 - Tailwind CSS v4
+- Inter
 - Motion
 - Telegram CTA: [@flassystudio](https://t.me/flassystudio)
 

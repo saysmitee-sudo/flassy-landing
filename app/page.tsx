@@ -1,27 +1,25 @@
+import { AmbientBackground } from "@/components/AmbientBackground";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { TrustBar } from "@/components/TrustBar";
-import { Services } from "@/components/Services";
-import { FeatureSplits } from "@/components/FeatureSplits";
 import { WorkGrid } from "@/components/WorkGrid";
-import { Testimonials } from "@/components/Testimonials";
+import { Services } from "@/components/Services";
+import { About } from "@/components/About";
+import { Partners } from "@/components/Partners";
 import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
 
 export default function HomePage() {
   return (
     <>
+      <AmbientBackground />
       <Header />
-      <main className="flex-1">
+      <main className="relative flex-1">
         <Hero />
-        <TrustBar />
-        <Services />
-        <FeatureSplits />
         <WorkGrid />
-        <Testimonials />
-        <Contact />
+        <Services />
+        <About />
+        <Partners />
       </main>
-      <Footer />
+      <Contact />
     </>
   );
 }

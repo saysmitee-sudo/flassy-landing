@@ -2,17 +2,13 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "dark" | "light" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "dark";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-ink text-white hover:bg-secondary border border-transparent",
-  secondary:
-    "bg-white text-ink border border-card-border hover:bg-neutral",
-  dark: "bg-white text-ink hover:bg-neutral border border-transparent",
-  light:
-    "bg-transparent text-ink border border-border hover:bg-black/[0.04]",
-  ghost: "bg-transparent text-ink hover:opacity-70 border-transparent",
+  primary: "bg-ink text-white hover:bg-ink/85",
+  secondary: "bg-white text-ink border border-ink/10 hover:bg-surface-soft",
+  dark: "bg-white text-ink hover:bg-white/90",
+  ghost: "bg-transparent text-ink hover:opacity-60",
 };
 
 type ButtonProps = {
@@ -25,7 +21,7 @@ type ButtonProps = {
 } & Omit<ComponentProps<"button">, "children" | "className">;
 
 const base =
-  "inline-flex items-center justify-center gap-1.5 rounded-full px-5 py-3 text-sm font-medium leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-50";
+  "relative inline-flex h-12 items-center justify-center rounded-full px-7 text-[17px] font-medium leading-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-50";
 
 export function Button({
   children,
@@ -37,22 +33,22 @@ export function Button({
   ...props
 }: ButtonProps) {
   const classes = `${base} ${variants[variant]} ${className}`;
-  const content = (
+  const content = showArrow ? (
     <>
-      {children}
-      {showArrow ? <ArrowUpRight className="size-4 shrink-0" aria-hidden /> : null}
+      <span>{children}</span>
+      <ArrowUpRight
+        className="pointer-events-none absolute right-5 top-1/2 size-[18px] -translate-y-1/2"
+        aria-hidden
+      />
     </>
+  ) : (
+    children
   );
 
   if (href) {
     if (external) {
       return (
-        <a
-          href={href}
-          className={classes}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
           {content}
         </a>
       );
