@@ -1,39 +1,33 @@
+import muxAssets from "@/lib/mux-assets.json";
+
 export const hero = {
   line1: "Discover the essence of FLASSY, an AI visual content agency.",
   line2: "Let's shape your brand into a masterpiece together.",
   cta: "Message us",
 } as const;
 
+function workVideo(
+  key: keyof typeof muxAssets,
+  localFile: string,
+  focus: string,
+) {
+  const asset = muxAssets[key];
+  const playbackId = asset.playbackId || undefined;
+  return {
+    title: asset.title,
+    type: "video" as const,
+    focus,
+    playbackId,
+    poster: `/media/posters/${localFile.replace(/\.mp4$/, ".jpg")}`,
+  };
+}
+
 export const work = {
   items: [
-    {
-      title: "Product Campaign",
-      media: "/media/vanta-nightshift-capsule.mp4",
-      poster: "/media/posters/vanta-nightshift-capsule.jpg",
-      type: "video" as const,
-      focus: "object-center",
-    },
-    {
-      title: "Ad Creatives",
-      media: "/media/creator-before-after.mp4",
-      poster: "/media/posters/creator-before-after.jpg",
-      type: "video" as const,
-      focus: "object-[50%_14%]",
-    },
-    {
-      title: "AI-avatars for brands",
-      media: "/media/maya-avatar-preview.mp4",
-      poster: "/media/posters/maya-avatar-preview.jpg",
-      type: "video" as const,
-      focus: "object-[50%_12%]",
-    },
-    {
-      title: "Digital characters",
-      media: "/media/royal-trader.mp4",
-      poster: "/media/posters/royal-trader.jpg",
-      type: "video" as const,
-      focus: "object-[50%_42%]",
-    },
+    workVideo("vanta-nightshift-capsule", "vanta-nightshift-capsule.mp4", "object-center"),
+    workVideo("creator-before-after", "creator-before-after.mp4", "object-[50%_14%]"),
+    workVideo("maya-avatar-preview", "maya-avatar-preview.mp4", "object-[50%_12%]"),
+    workVideo("royal-trader", "royal-trader.mp4", "object-[50%_42%]"),
   ],
 } as const;
 

@@ -20,13 +20,14 @@ export function WorkGrid() {
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] bg-surface shadow-soft ring-1 ring-black/5 transition-[box-shadow,transform] duration-500 group-hover:-translate-y-1 group-hover:shadow-lift md:rounded-[28px]">
                   {item.type === "video" ? (
                     <WorkVideo
-                      src={item.media}
+                      playbackId={item.playbackId}
                       poster={item.poster}
+                      title={item.title}
                       className={item.focus}
                     />
                   ) : (
                     <Image
-                      src={item.media}
+                      src={item.poster}
                       alt=""
                       fill
                       className={`object-contain p-6 transition-transform duration-700 group-hover:scale-[1.04] md:p-9 ${item.focus}`}

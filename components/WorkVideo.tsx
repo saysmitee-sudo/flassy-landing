@@ -1,18 +1,25 @@
 "use client";
 
 import Image from "next/image";
+import MuxVideo from "@mux/mux-video-react";
 import { useEffect, useRef, useState } from "react";
 
 type WorkVideoProps = {
-  src: string;
+  playbackId?: string;
   poster: string;
+  title: string;
   className?: string;
 };
 
-export function WorkVideo({ src, poster, className = "" }: WorkVideoProps) {
+export function WorkVideo({
+  playbackId,
+  poster,
+  title,
+  className = "",
+}: WorkVideoProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [active, setActive] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -22,11 +29,11 @@ export function WorkVideo({ src, poster, className = "" }: WorkVideoProps) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
-          setActive(true);
+          setShouldLoad(true);
           observer.disconnect();
         }
       },
-      { rootMargin: "200px 0px", threshold: 0.01 },
+      { rootMargin: "400px 0px", threshold: 0.01 },
     );
 
     observer.observe(el);
@@ -34,48 +41,66 @@ export function WorkVideo({ src, poster, className = "" }: WorkVideoProps) {
   }, []);
 
   useEffect(() => {
-    if (!active) return;
-    const video = videoRef.current;
-    if (!video) return;
+    if (!shouldLoad || !playbackId) return;
 
-    const play = () => {
+    const el = containerRef.current;
+    const video = videoRef.current;
+    if (!el || !video) return;
+
+    const reveal = () => {
+      setReady(true);
       void video.play().catch(() => {});
     };
 
-    if (video.readyState >= 2) {
-      setReady(true);
-      play();
-    }
+    if (video.readyState >= 3) reveal();
 
-    const onCanPlay = () => {
-      setReady(true);
-      play();
+    video.addEventListener("canplay", reveal);
+    video.addEventListener("playing", reveal);
+
+    const visibility = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        if (entry.isIntersecting) {
+          void video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    visibility.observe(el);
+
+    return () => {
+      video.removeEventListener("canplay", reveal);
+      video.removeEventListener("playing", reveal);
+      visibility.disconnect();
     };
-
-    video.addEventListener("canplay", onCanPlay);
-    return () => video.removeEventListener("canplay", onCanPlay);
-  }, [active]);
+  }, [shouldLoad, playbackId]);
 
   const mediaClass = `object-cover transition-[opacity,transform] duration-700 group-hover:scale-[1.04] ${className}`;
 
   return (
-    <div ref={containerRef} className="absolute inset-0">
+    <div ref={containerRef} className="absolute inset-0 bg-surface">
       <Image
         src={poster}
         alt=""
         fill
-        className={`${mediaClass} ${ready ? "opacity-0" : "opacity-100"}`}
+        className={`${mediaClass} ${ready ? "pointer-events-none opacity-0" : "opacity-100"}`}
         sizes="(max-width: 768px) 100vw, 50vw"
       />
-      {active ? (
-        <video
+      {shouldLoad && playbackId ? (
+        <MuxVideo
           ref={videoRef}
-          src={src}
+          playbackId={playbackId}
+          streamType="on-demand"
           muted
           loop
           playsInline
-          preload="metadata"
-          poster={poster}
+          autoPlay
+          preload="auto"
+          preferPlayback="mse"
+          metadata={{ video_title: title }}
           className={`absolute inset-0 size-full ${mediaClass} ${ready ? "opacity-100" : "opacity-0"}`}
         />
       ) : null}
